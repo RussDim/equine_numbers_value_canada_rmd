@@ -32,7 +32,20 @@ analysis and create this report can be found here:
 
 ## Results
 
-![](hist_horse_pop_files/figure-gfm/plot%20horses-1.png)<!-- -->
+``` r
+horse_plot <- ggplot(horse_pop, aes(x = Ref_Date, y = Value)) +
+  geom_point() +
+  geom_line() +
+  xlab("Year") +
+  ylab("Number of horses") +
+  ggtitle("Historical number of horses per province in Canada") +
+  facet_grid(~GEO) +
+  scale_y_continuous(labels = scales::comma) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+horse_plot
+```
+
+<img src="hist_horse_pop_files/figure-gfm/plot horses-1.png" alt="Historical number of horses per province in Canada" width="100%" />
 
 We can see from the visualisation above that Ontario, Saskatchewan and
 Alberta have had the highest horse populations in Canada. All provinces
@@ -44,6 +57,16 @@ time period visualised above to further support this hypothesis.
 
 Next we look at the range of the number horses for each provinces at any
 time point between 1940 - 1972:
+
+``` r
+max_horses <- horse_pop %>% 
+  select(GEO, Value) %>% 
+  rename(Province = GEO) %>% 
+  group_by(Province) %>% 
+  summarize(Maximum = max(Value),
+            Minimum = min(Value))
+knitr::kable(max_horses, caption = "Table 1. Range of number of horses for each province between 1940-1972")
+```
 
 | Province             | Maximum | Minimum |
 |:---------------------|--------:|--------:|
@@ -60,5 +83,20 @@ time point between 1940 - 1972:
 Table 1. Range of number of horses for each province between 1940-1972
 
 Below we zoom in and look at the province of Alberta:
+
+``` r
+province_plot <- horse_pop %>% 
+  filter(GEO == "Alberta") %>% 
+  ggplot(aes(x = Ref_Date, y = Value)) +
+  geom_point() +
+  geom_line() +
+  xlab("Year") +
+  ylab("Number of horses") +
+  ggtitle("Historical number of horses per province in Canada") +
+  facet_grid(~GEO) +
+  scale_y_continuous(labels = scales::comma) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+province_plot
+```
 
 ![](hist_horse_pop_files/figure-gfm/plot%20province-1.png)<!-- -->
