@@ -513,7 +513,7 @@ knitr::kable(max_horses, caption = &quot;Table 1. Range of number of horses for 
 </tr>
 </tbody>
 </table>
-<p>Below we zoom in and look at the province of Alberta:</p>
+<p>Below we zoom in and look at the province of Alberta (Alberta):</p>
 <pre class="r"><code>province_plot &lt;- horse_pop %&gt;% 
   filter(GEO == &quot;Alberta&quot;) %&gt;% 
   ggplot(aes(x = Ref_Date, y = Value)) +
