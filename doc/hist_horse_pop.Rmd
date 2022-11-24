@@ -5,6 +5,8 @@ title: "Historical horse population in Canada"
 output: 
   html_document:
     toc: true
+    
+bibliography: references.bib
 ---
 
 ```{r setup, include=FALSE}
@@ -26,6 +28,8 @@ horse_pop <- filter(horse_pop,
                     GEO != "Canada")
 horse_pop$Value <- horse_pop$Value * 1000
 ```
+
+Citation: @R-base
 
 Horse population data were sourced from the [Government of Canada's Open Data website](http://open.canada.ca/en/open-data). Specifically, these two sources were used:
 
